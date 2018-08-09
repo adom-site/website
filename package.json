@@ -1,0 +1,25 @@
+{
+  "name": "adom-site",
+  "version": "1.0.0",
+  "description": "adom.site website source",
+  "main": "\u001b[D\u001b[D\u001b[D\u001b[C\u001b[C\u001b[C\u001b[C\u001b",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/adom-site/website.git"
+  },
+  "keywords": [
+    "adom",
+    "steem",
+    "interface",
+    "blog"
+  ],
+  "author": "dzivenu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adom-site/website/issues"
+  },
+  "homepage": "https://github.com/adom-site/website#readme"
+}

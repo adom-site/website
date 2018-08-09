@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Adom - Beautiful minimal personal Steem blogging interfaces</title>
+  <meta name="description" content="Adom offers three powerful open sourced Steem CMS solutions.">
+  <meta name="author" content="Steem Institute">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/custom.css">
+
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+  <div class="section hero">
+    <div class="container">
+      <div class="row">
+        <div class="one-half column">
+          <h4 class="hero-heading">Beautiful minimal personal Steem blogging interfaces.</h4>
+          <a class="button button-primary" >Docs shipped..would arrive soon!</a>
+        </div>
+        <div class="one-half column logos">
+          <img class="logo" src="images/logo.png">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section values">
+    <div class="container">
+      <div class="row">
+        <div class="one-third column value">
+          <h2 class="value-multiplier">Static</h2>
+          <h5 class="value-heading">Hobbyist</h5>
+          <p class="value-description">Ready to ship to your favorite free static web hosting service.</p>
+          <a class="button button-primary" href="https://adom.netlify.com">Live demo</a>
+        </div>
+        <div class="one-third column value">
+          <h2 class="value-multiplier">Lite</h2>
+          <h5 class="value-heading">Professional</h5>
+          <p class="value-description">Get a full blogging solution; powerful, minimal and beautiful.</p>
+          <a class="button button-primary" >Coming soon</a>
+        </div>
+        <div class="one-third column value">
+          <h2 class="value-multiplier">Full</h2>
+          <h5 class="value-heading">Enterprise</h5>
+          <p class="value-description">Complete CMS solution powered by Themeable.js themes and more!</p>
+          <a class="button button-primary" >Coming soon</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section get-help">
+    <div class="container">
+      <h3 class="section-heading" style="margin-bottom: 10rem">Recent posts from our blog</h3>
+		
+		<div class="loader" id="loader"></div>
+		<div class="posts" id="posts"></div>
+		
+      <a class="button button-primary" href="https://steemit.com/@adom/" target="_blank" id="blog" style="display:none">Read more on Steemit</a>
+    </div>
+  </div>
+
+  <div class="section get-help">
+    <div class="container">
+      <h3 class="section-heading">Want more? Its open source.</h3>
+      <p class="section-description">Let Adom give your personal and corporate brand a gracious makeover. Adom is a project of the <a href="https://steem.institute" target="_blank">Steem Institute</a>. <a href="https://github.com/adom-site/website" target="_blank">Improve this page</a>.</p>
+      <a class="button button-primary" href="https://github.com/adom-site/">See all Adom projects</a>
+    </div>
+  </div>
+
+  <div class="section credits" style="padding: 4rem 0 4rem;">
+    <small>
+		A project of <a href="https://steem.institute" target="_blank">Steem Institute</a>. Follow on <a href="https://steemit.com/@adom" target="_blank">Steemit</a>. Image by <a href="https://unsplash.com/photos/HV_AJqzV0EQ" target="_blank">Photo</a> by Michael Heuser on Unsplash.
+    </small>
+  </div>
+
+  
+  
+
+<!-- temp mounting div -->
+	
+	<div id="temp" style="display:none"></div>
+	
+<!-- temp mounting div -->
+
+  
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.7.1/remarkable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/1.0.5/purify.min.js"></script>
+
+  <script src="https://unpkg.com/dsteem@latest/dist/dsteem.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
+ 
+  <script>
+  //
+  
+    var client = new dsteem.Client('https://api.steemit.com');
+    client.database.getDiscussions('blog', {tag: 'adom', limit: 10}).then(function(discussions){
+		//console.log(discussions);
+		for (var x in discussions) {
+			create_post(discussions[x]);
+		}
+		$('#loader').hide();
+		
+		$('#blog').show();
+		
+    });
+	
+	
+	function create_post(post) {
+	
+		var row = document.createElement("div");
+		row.className = "row";
+		row.style.textAlign = "left";
+		
+			var twoColumn = document.createElement("div");
+			twoColumn.className = "two columns";
+		
+				var img = document.createElement("img");
+				img.src = first_img(post.body);
+				img.style.width = "120px";
+				
+			twoColumn.appendChild(img);
+		
+		row.appendChild(twoColumn);
+		
+			var tenColumn = document.createElement("div");
+			tenColumn.className = "ten columns";
+		
+				var row2 = document.createElement("div");
+				row2.className = "row";
+				
+					var tenColumn2 = document.createElement("div");
+					tenColumn2.className = "ten columns";
+		
+						var b = document.createElement("b");
+						b.innerText = post.title;
+				
+					tenColumn2.appendChild(b);
+				
+				row2.appendChild(tenColumn2);
+				
+					var twoColumn2 = document.createElement("div");
+					twoColumn2.className = "two columns";
+				
+						var small = document.createElement("small");
+						small.innerText = new Date(post.created).toDateString();
+					
+					twoColumn2.appendChild(small);
+				
+				row2.appendChild(twoColumn2);
+			
+			tenColumn.appendChild(row2);
+			
+			var p = document.createElement("p");
+				
+				var span = document.createElement("span");
+				span.innerText = parseText(post.body);
+			
+				var br = document.createElement("br");
+			
+				var a = document.createElement("a");
+				a.href = "https://steemit.com/" + post.category + "/@" + post.author + "/" + post.permlink;
+				a.target = "_blank";
+				a.innerText = "Continue reading";
+			
+				p.appendChild(span);
+				p.appendChild(br);
+				p.appendChild(a);
+			
+			tenColumn.appendChild(p);
+		
+		row.appendChild(tenColumn);
+		
+		document.getElementById('posts').appendChild(row);
+		
+	}
+  
+  
+	function first_img(text) {
+		
+		//return text.match(/\((.*?)\)/)[1];
+		return text.match(/(https?:\/\/.*\.(?:png|jpg|jpeg|gif|png|svg))/i)[0];
+		
+	}
+  
+  
+	function parseText(html) {
+		
+		var md = new Remarkable({
+			html: true, // Remarkable renders first then sanitize runs...
+			breaks: false,
+			linkify: false, // linkify is done locally
+			typographer: false, // https://github.com/jonschlinkert/remarkable/issues/142#issuecomment-221546793
+			quotes: '“”‘’',
+		});
+		
+		//sanitze html before appending to  '#temp'
+		var safeText = DOMPurify.sanitize(html);
+		
+		$('#temp').html(md.render(safeText));
+		
+		var htmlString = $("#temp").text();
+		var stripedHtml = htmlString.replace(/<[^>]+>/g, '');
+		var stripedNewline = stripedHtml.replace(/\r?\n|\r/g, ' ');
+		var stripeImg = stripedNewline.replace(/(http)?s?:?(\/\/[^"']*\.(?:png|jpg|jpeg|gif|png|svg))/ig, '');
+		var trimHtml = stripeImg.trim();
+		
+		$('#temp').html("");
+		
+		return trimHtml.substring(0, 200) + "... ";
+		
+	}
+  
+  
+  </script>
+
+
+  
+  
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>
